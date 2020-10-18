@@ -1,0 +1,15 @@
+---
+# handlers file for local_system
+
+- name: Run install script for defined nerdfonts
+  command: "./install.sh {{ item }}"
+  args:
+    chdir: ~/projects/nerd-fonts
+    # creates: "~/.local/share/fonts/NerdFonts/{{ (item | regex_findall('[A-Z][a-z]+'))[0] }} {{ (item | regex_findall('[A-Z][a-z]+'))[1] | default('') }}*.ttf"
+  loop: "{{ local_system_nerdfonts }}"
+  listen: nerdfont-install
+  notify: font-cache
+
+- name: Run font-cache rebuild
+  command: fc-cache -f
+  listen: font-cache

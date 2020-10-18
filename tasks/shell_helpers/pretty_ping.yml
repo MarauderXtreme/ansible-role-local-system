@@ -1,0 +1,19 @@
+---
+
+- name: Ensure presence of dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - bash
+    - iputils-ping
+    - gawk
+
+- name: Download prettyping and place globally
+  become: yes
+  get_url:
+    url: "https://github.com/denilsonsa/prettyping/blob/{{ local_system_prettyping }}/prettyping"
+    dest: /usr/local/bin/prettyping
+    mode: "0755"
+    owner: root
+    group: root

@@ -1,0 +1,51 @@
+---
+
+- name: Install oh-my-zsh from git
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "$HOME/.oh-my-zsh"
+    version: "{{ local_system_omz_version }}"
+    depth: "1"
+  when:
+    - local_system_omz is defined
+    - local_system_omz is not false
+
+- name: Install p10k from git
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
+    version: "{{ local_system_omz_p10k }}"
+    depth: "1"
+  when:
+    - local_system_omz is defined
+    - local_system_omz is not false
+    - local_system_omz_p10k is defined
+    - local_system_omz_p10k is not false
+
+- name: Install zsh auto-suggest from git
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    version: "{{ local_system_omz_autosuggests }}"
+    depth: "1"
+  when:
+    - local_system_omz is defined
+    - local_system_omz is not false
+    - local_system_omz_autosuggests is defined
+    - local_system_omz_autosuggests is not false
+
+- name: Place zsh configs
+  copy:
+    src: "{{ item }}"
+    dest: "~/{{ item }}"
+    mode: "0644"
+  loop:
+    - .zshrc
+    - .p10k.zsh
+  when:
+    - local_system_omz is defined
+    - local_system_omz is not false
+    - local_system_omz_p10k is defined
+    - local_system_omz_p10k is not false
+    - local_system_omz_autosuggests is defined
+    - local_system_omz_autosuggests is not false

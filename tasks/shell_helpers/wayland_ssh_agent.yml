@@ -1,0 +1,32 @@
+---
+
+- name: Copy .pam_environment for SSH_AUTH_SOCK
+  copy:
+    src: wayland-ssh-agent/.pam-environment
+    dest: ~/.pam-environment
+    mode: "0644"
+
+- name: Ensure presence of ~/.config/systemd/user
+  file:
+    path: ~/.config/systemd/user
+    state: directory
+    mode: "0775"
+
+- name: Copy ssh-agent unit to user dir
+  copy:
+    src: wayland-ssh-agent/ssh-agent.service
+    dest: ~/.config/systemd/user/ssh-agent.service
+    mode: "0664"
+  register: local_system_ssh_agent
+
+- name: Systemd daemon-reload
+  systemd:
+    daemon_reload: true
+  when: local_system_ssh_agent | changed
+
+- name: Enable and start ssh-agent.service
+  systemd:
+    name: ssh-agent
+    state: started
+    enabled: yes
+    scope: user

@@ -1,0 +1,10 @@
+---
+
+- name: Download genact from github and place globally
+  become: yes
+  get_url:
+    url: "https://github.com/svenstaro/genact/releases/download/{{ local_system_genact }}/genact-{{ local_system_genact }}-linux-{{ ansible_architecture }}"
+    dest: /usr/local/bin/genact
+    owner: root
+    group: root
+    mode: "0755"

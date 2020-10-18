@@ -1,0 +1,20 @@
+---
+
+- name: Setup NOPASSWD for sudo
+  import_tasks: sudo.yml
+
+- name: "Ensure {{ ansible_user_id }} is in group sudo"
+  user:
+    name: "{{ ansible_user_id }}"
+    groups:
+      - sudo
+    append: yes
+
+- name: Ensure presence of python3, pip and py3-devel
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - python3
+    - python3-pip
+    - python3-dev

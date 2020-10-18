@@ -1,0 +1,24 @@
+---
+# tasks file for local_system
+
+- import_tasks: include_vars.yml
+
+- import_tasks: prepare.yml
+  become: yes
+
+- include_tasks: "{{ ansible_os_family | lower }}.yml"
+
+- name: Rewrite KDE neon to Ubuntu
+  set_fact:
+    ansible_distribution_corrected: Ubuntu
+  when: ansible_distribution == "KDE neon"
+
+- include_tasks: "extra_software/{{ ansible_distribution_corrected | default(ansible_distribution) | lower }}.yml"
+
+- import_tasks: "shell_helpers/shell_helpers.yml"
+
+- import_tasks: "fonts/fonts.yml"
+
+- import_tasks: "vscode.yml"
+
+- import_tasks: "rambox.yml"

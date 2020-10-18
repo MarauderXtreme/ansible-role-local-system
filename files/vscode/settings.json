@@ -1,0 +1,142 @@
+{
+	"workbench.colorTheme": "Noctis Sereno",
+	"workbench.iconTheme": "vscode-icons",
+	"editor.fontFamily": "'FiraCode Nerd Font Mono', 'Fira Code', 'Iosevka Nerd Font', 'Iosevka SS05', 'monospace', monospace",
+	"editor.fontLigatures": true,
+	"editor.suggestSelection": "first",
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"editor.quickSuggestionsDelay": 25,
+	"files.eol": "\n",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"debug.console.fontFamily": "'FiraCode Nerd Font Mono', 'Iosevka Nerd Font', default",
+	"telemetry.enableTelemetry": false,
+	"latex-workshop.latex.tools": [
+			{
+					"name": "latexmk",
+					"command": "latexmk",
+					"args": [
+							"-synctex=1",
+							"-interaction=nonstopmode",
+							"-file-line-error",
+							"-pdf",
+							"-outdir=%OUTDIR%",
+							"%DOC%"
+					],
+					"env": {}
+			},
+			{
+					"name": "lualatexmk",
+					"command": "latexmk",
+					"args": [
+							"-synctex=1",
+							"-interaction=nonstopmode",
+							"-file-line-error",
+							"-lualatex",
+							"-outdir=%OUTDIR%",
+							"%DOC%"
+					],
+					"env": {}
+			},
+			{
+					"name": "latexmk_rconly",
+					"command": "latexmk",
+					"args": [
+							"%DOC%"
+					],
+					"env": {}
+			},
+			{
+					"name": "pdflatex",
+					"command": "pdflatex",
+					"args": [
+							"-synctex=1",
+							"-interaction=nonstopmode",
+							"-file-line-error",
+							"%DOC%"
+					],
+					"env": {}
+			},
+			{
+					"name": "xetex",
+					"command": "xelatex",
+					"args": [
+							"-synctex=1",
+							"-interaction=nonstopmode",
+							"-file-line-error",
+							"%DOC%"
+					],
+					"env": {}
+			},
+			{
+					"name": "bibtex",
+					"command": "bibtex",
+					"args": [
+							"%DOCFILE%"
+					],
+					"env": {}
+			}
+	],
+	"latex-workshop.latex.recipes": [
+			{
+					"name": "xetex 🔃",
+					"tools": [
+							"xetex"
+					]
+			},
+			{
+					"name": "xetex ➞ bibtex ➞ xetex × 2",
+					"tools": [
+							"xetex",
+							"bibtex",
+							"xetex",
+							"xetex"
+					]
+			},
+			{
+					"name": "pdflatex 🔃",
+					"tools": [
+							"pdflatex"
+					]
+			},
+			{
+					"name": "pdflatex ➞ bibtex ➞ pdflatex × 2",
+					"tools": [
+							"pdflatex",
+							"bibtex",
+							"pdflatex",
+							"pdflatex"
+					]
+			},
+			{
+					"name": "latexmk 🔃",
+					"tools": [
+							"latexmk"
+					]
+			},
+			{
+					"name": "latexmk (latexmkrc)",
+					"tools": [
+							"latexmk_rconly"
+					]
+			},
+			{
+					"name": "latexmk (lualatex)",
+					"tools": [
+							"lualatexmk"
+					]
+			}
+	],
+	"latex-workshop.view.pdf.viewer": "tab",
+	"python.jediEnabled": false,
+	"python.pythonPath": "/usr/bin/python3",
+	"yaml.format.printWidth": 160,
+	"shellcheck.customArgs": [
+			"-x"
+	],
+	"markdown.extension.print.theme": "dark",
+	"markdown.extension.tableFormatter.normalizeIndentation": true,
+	"markdown.extension.toc.githubCompatibility": true
+}

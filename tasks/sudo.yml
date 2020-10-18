@@ -1,0 +1,24 @@
+---
+
+- name: Install sudo package
+  package:
+    name: sudo
+    state: present
+
+- name: Create sudo group
+  group:
+    name: "{{ item }}"
+    system: yes
+    state: present
+  loop:
+    - sudo
+    - sudo-password
+
+- name: Install new sudoers after validation
+  copy:
+    src: sudoers
+    dest: /etc/sudoers
+    validate: 'visudo -cf %s'
+    mode: "0440"
+  tags:
+    - sudoers

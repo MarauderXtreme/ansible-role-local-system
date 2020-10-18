@@ -1,0 +1,49 @@
+---
+
+local_system_gitconfig:
+  - name: user.signinkey
+    value: FED133CE3670330D
+  - name: commit.gpgsign
+    value: "true"
+  - name: alias.undo-commit
+    value: reset HEAD^
+  - name: alias.lg
+    value: log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  - name: alias.pr
+    value: pr = !sh -c 'git fetch $1 pull/$2/head:pull/$2 && git checkout $1/pull/$2' -
+  - name: alias.mr
+    value: mr = !sh -c 'git fetch $1 merge-requests/$2/head:merge-requests/$2 && git checkout $1/merge-requests/$2' -
+  - name: core.autocrlf
+    value: input
+  - name: core.excludesfile
+    value: ~/.cvsignore
+  - name: pull.rebase
+    value: preserve
+  - name: push.default
+    value: upstream
+
+local_system_diff_so_fancy_gitconfig:
+  - name: core.pager
+    value: diff-so-fancy | less --tabs=1,5 -RFX
+  - name: color.ui
+    value: "true"
+  - name: color.diff-highlight.oldNormal
+    value: red bold
+  - name: color.diff-highlight.oldHighlight
+    value: red bold 52
+  - name: color.diff-highlight.newNormal
+    value: green bold
+  - name: color.diff-highlight.newHighlight
+    value: green bold 22
+  - name: color.diff-highlight.meta
+    value: yellow
+  - name: color.diff-highlight.frag
+    value: magenta bold
+  - name: color.diff-highlight.commit
+    value: yellow bold
+  - name: color.diff-highlight.old
+    value: red bold
+  - name: color.diff-highlight.new
+    value: green bold
+  - name: color.diff-highlight.whitespace
+    value: red reverse

@@ -1,0 +1,7 @@
+---
+
+- name: Install nice things from pip to user dir
+  pip:
+    name: "{{ item }}"
+    extra_args: --user
+  loop: "{{ local_system_pip }}"

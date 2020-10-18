@@ -1,0 +1,21 @@
+---
+
+- import_tasks: fonts/firacode.yml
+  when:
+    - local_system_firacode is defined
+    - local_system_firacode is not false
+
+- import_tasks: fonts/iosevka_ss05.yml
+  when:
+    - local_system_iosevka is defined
+    - local_system_iosevka is not false
+
+- import_tasks: fonts/nerdfont.yml
+  when:
+    - local_system_nerdfonts is defined
+    - local_system_nerdfonts is not false
+
+- import_tasks: fonts/unifraktur_maguntia.yml
+  when:
+    - local_system_unifraktur is defined
+    - local_system_unifraktur is not false

@@ -1,0 +1,68 @@
+alias ll='ls -lishA'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias cd..='cd ..'
+#alias grep='grep -v grep| grep --color'
+alias pwgen='pwgen -Bync 32'
+
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias jekyll="bundler exec jekyll"
+alias desktop-logout='qdbus org.kde.ksmserver /KSMServer logout 0 3 3'
+alias most-used="history | awk '{print $5}' | sort | uniq -c | sort -n | tail -n 20 | tac"
+
+# Entnazifizierung der Kommandozeile
+alias ß="ss"
+
+alias c="xclip"
+alias cs="xclip -selection clipboard"
+alias v="xclip -o"
+alias vs="xclip -o -selection clipboard"
+
+alias clip-key="cs ~/.ssh/id_ed25519.pub"
+
+alias edit='vim'
+
+ro-edit() {
+	for F in "$@"; do
+		if [ -f "$F" ]; then
+			chmod u+w $F
+			edit $F
+			chmod u-w $F
+		fi
+	done
+}
+
+alias git-real-name='git config user.name "Christoph Kepler"'
+
+git-config() {
+	case $1 in
+		ag)
+			EMAIL="chriske@wh12.tu-dresden.de";;
+		private)
+			EMAIL="development@kepler.international";;
+		work)
+			EMAIL="christoph.kepler@tyclipso.net";;
+		*)
+			echo "Currently supports ag, private and work";;
+	esac
+	git-real-name
+	git config user.email "$EMAIL"
+}
+
+# alias please='sudo "$BASH" -c "$(history -p !!)"'
+# alias fuck='sudo "$BASH" -c "$(history -p !!)"'
+
+alias nmap-up='sudo nmap -A -T4'
+
+alias termscreensaver='cmatrix -b -s'
+
+alias ping='prettyping --nolegend'
+alias cat='bat'
+
+alias super-lint-here='docker run --rm -e RUN_LOCAL=true -v "$PWD":/tmp/lint github/super-linter'
+
+show-colors() {
+	for CODE in {000..255}; do
+		print -P -- "$CODE: %F{$CODE}This is how your text would look like%f"
+	done
+}

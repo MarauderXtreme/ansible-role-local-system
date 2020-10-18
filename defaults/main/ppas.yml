@@ -1,0 +1,21 @@
+---
+
+local_system_ppa:
+  # - ppa:ansible/ansible
+  - ppa:dawidd0811/neofetch
+  - ppa:git-core/ppa
+  - ppa:hvr/ghc
+  - ppa:isc/bind
+  # - ppa:jonathonf/backports
+  # - ppa:jonathonf/texlive
+  - ppa:jonathonf/vim
+  - ppa:libreoffice/ppa
+  # - ppa:mozgiii/pass
+  - ppa:oibaf/graphics-drivers
+  - ppa:ondrej/nginx-mainline
+  # - ppa:otto-kesselgulasch/gimp
+  - ppa:serge-rider/dbeaver-ce
+  - ppa:tiagohillebrandt/postman
+  - ppa:ubuntu-mozilla-security/ppa
+  - ppa:uunicorn/open-fprintd
+  # - ppa:zanchey/asciinema

@@ -1,0 +1,3 @@
+all:
+  hosts:
+    local_system: {}

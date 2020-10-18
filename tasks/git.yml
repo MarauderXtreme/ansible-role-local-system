@@ -1,0 +1,14 @@
+---
+
+- name: Set various global .gitconfigs
+  community.general.git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  loop: "{{ local_system_gitconfig }}"
+
+- name: Place .cvsignore in ~
+  copy:
+    src: .cvsignore
+    dest: ~/.cvsignore
+    mode: "0640"

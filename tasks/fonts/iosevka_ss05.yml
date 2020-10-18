@@ -1,0 +1,24 @@
+---
+
+- name: Ensure presence of fonts-dir
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - ~/.local/share/fonts/iosevka
+    - /tmp/iosevka
+
+- name: Download Iosevka SS05 (Fira Style) Package
+  unarchive:
+    src: "https://github.com/be5invis/Iosevka/releases/download/{{ local_system_iosevka }}/pkg-iosevka-ss05-{{ local_system_iosevka[1:] }}.zip"
+    dest: /tmp/iosevka
+    remote_src: yes
+    mode: "0755"
+
+- name: Copy over Iosevka TTFs
+  copy:
+    src: /tmp/iosevka/ttf/
+    dest: ~/.local/share/fonts/iosevka
+    remote_src: yes
+    mode: "0644"
+  notify: font-cache

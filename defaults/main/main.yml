@@ -1,0 +1,29 @@
+---
+# defaults file for local_system
+# see https://github.com/ansible/ansible/pull/36357#issuecomment-463855017
+# how to use mutliple default files
+
+nodejs_install_npm_user: root
+
+local_system_uppercase_folders:
+  - Bilder
+  - Dokumente
+  - Downloads
+  - Musik
+  - Öffentlich
+  - Schreibtisch
+  - Videos
+  - Vorlagen
+
+local_system_projects_paths:
+  - ~/dokumente/projects
+  - ~/dokumente/projects/ansible-roles
+  - ~/dokumente/projects/docker-images
+  - ~/dokumente/projects/shell-helpers
+  - ~/dokumente/projects/agdsn
+  - ~/dokumente/projects/work
+  - ~/dokumente/projects/work/docker-images
+
+local_system_paths_unshorten:
+  - ~/dokumente/projects/agdsn
+  - ~/dokumente/projects/work

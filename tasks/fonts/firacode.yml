@@ -1,0 +1,38 @@
+---
+
+- name: Install Fira Code from package manager when
+  block:
+
+  - name: Install fonts-firacode
+    package:
+      name: fonts-firacode
+      state: present
+    when: >
+      ((ansible_distribution == 'Ubuntu' or ansible_distribution_corrected == "Ubuntu") and ansible_distribution_version is version('17.10','>='))
+      or (ansible_distribution == 'Debian' and ansible_distribution_major_version is version('9','>='))
+
+  when:
+    - local_system_firacode == 'package'
+
+- name: Install Fira Code from git
+  block:
+
+    - name: Ensure presence of fonts-dir
+      file:
+        path: ~/.local/share/fonts/FiraCode
+        state: directory
+
+    - name: Download FiraCode Font Files
+      get_url:
+        url: "https://github.com/tonsky/FiraCode/blob/{{ local_system_firacode }}/distr/ttf/FiraCode-{{ item }}.ttf?raw=true"
+        dest: "~/.local/share/fonts/FiraCode/FiraCode-{{ item }}.ttf"
+        mode: '0644'
+      loop:
+        - Bold
+        - Light
+        - Medium
+        - Regular
+        - Retina
+      notify: font-cache
+
+  when: local_system_firacode != 'package'

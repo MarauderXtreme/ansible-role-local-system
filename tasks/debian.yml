@@ -1,0 +1,24 @@
+---
+
+- name: Set local_system_packages for debian-based systems
+  set_fact:
+    local_system_packages: "{{ local_system_general_packages + local_system_ppa_packages + local_system_debian_packages }}"
+
+- name: Ensure python3-apt is installed
+  apt:
+    name: python3-apt
+    state: present
+  become: yes
+
+- name: Activate all neat PPAs
+  apt_repository:
+    repo: "{{ item }}"
+  loop: "{{ local_system_ppa }}"
+  become: yes
+
+- name: Ensure presence of useful software
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ local_system_packages }}"
+  become: yes

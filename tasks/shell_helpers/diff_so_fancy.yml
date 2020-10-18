@@ -1,0 +1,21 @@
+---
+
+- name: Check if /usr/lib/node_modules/diff-so-fancy/diff-so-fancy exists
+  stat:
+    path: /usr/lib/node_modules/diff-so-fancy/diff-so-fancy
+  register: local_system_dsf_executable
+
+# Set changed only when dsf is not already present
+# apparently npm: global=yes sets always changed to true
+- name: Install diff-so-fancy via npm
+  community.general.npm:
+    global: yes
+    name: "diff-so-fancy@{{ local_system_dsf }}"
+  changed_when: not local_system_dsf_executable.stat.exists
+
+- name: Setup diff-so-fancy gitconfig
+  community.general.git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  loop: "{{ local_system_diff_so_fancy_gitconfig }}"

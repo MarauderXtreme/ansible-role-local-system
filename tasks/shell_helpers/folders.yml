@@ -1,0 +1,54 @@
+---
+
+- name: Check if uppercase folders are present
+  stat:
+    path: "~/{{ item }}"
+  register: uppercase_folders
+  loop: "{{ local_system_uppercase_folders }}"
+
+- name: Copy uppercase folders to lowercase
+  copy:
+    src: "~/{{ item.item }}"
+    dest: "~/{{ item.item | lower }}"
+    remote_src: yes
+    mode: preserve
+  loop: "{{ uppercase_folders.results }}"
+  when:
+    - item.stat.exists | bool
+    - item.stat.isdir | bool
+
+- name: Remove uppercase folders
+  file:
+    path: "~/{{ item.item }}"
+    state: absent
+  loop: "{{ uppercase_folders.results }}"
+  when:
+    - item.stat.exists | bool
+    - item.stat.isdir | bool
+
+- name: Create projects folder
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0775"
+  loop: "{{ local_system_projects_paths }}"
+
+- name: Create various .shorten_folder_marker
+  file:
+    path: "{{ item }}/.shorten_folder_marker"
+    state: file
+    mode: "0664"
+  loop: "{{ local_system_paths_unshorten }}"
+
+- name: "Symlink {{ local_system_projects_paths[0] }} to ~/{{ local_system_projects_paths[0].split('/')[-1] }}"
+  file:
+    src: "{{ local_system_projects_paths[0] }}"
+    dest: "~/{{ local_system_projects_paths[0].split('/')[-1] }}"
+    state: link
+
+- name: Ensure ~/.ssh is present
+  file:
+    path: ~/.ssh
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    mode: "0750"

@@ -1,0 +1,42 @@
+galaxy_info:
+  name: local_system
+  author: Christoph Kepler
+  description: Reference - Setup for my workstation
+  license: MIT
+  min_ansible_version: 2.9.11
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+    - name: Debian
+      versions:
+        - buster
+  galaxy_tags:
+    - bootstrap
+    - dotfiles
+    - bash
+    - zsh
+    - ppas
+    - git
+    - sudo
+    - npm
+    - fzf
+    - prettyping
+    - bat
+    - diffsofancy
+    - genact
+    - rambox
+    - vscode
+    - signal
+    - nerdfonts
+    - programmingfonts
+    - gpg
+
+dependencies:
+  - src: geerlingguy.nodejs
+    name: nodejs
+
+collections:
+  - community.general

@@ -1,0 +1,36 @@
+---
+
+local_system_general_packages:
+  - openssh-client
+  - git
+  - gnupg
+  - etckeeper
+  - zsh
+  - tmux
+  - htop
+  - less
+  - vim
+  - man
+  - dbus
+  - tree
+  - ppa-purge
+  - pass
+  - yakuake
+  - bash-completion
+  - direnv
+
+local_system_ppa_packages:
+  - neofetch
+  - openssl
+  - dbeaver-ce
+  - postman
+  - asciinema
+  - open-fprintd
+  - fprintd-clients
+  - python3-validity
+
+local_system_debian_packages:
+  - debconf
+  - debconf-utils
+  - usrmerge
+  - xz-utils

@@ -1,0 +1,57 @@
+---
+
+- include_tasks: "{{ file_item }}"
+  with_first_found:
+    - "{{ ansible_user_shell.split('/')[:-1] }}.yml"
+    - "bash.yml"
+  loop_control:
+    loop_var: file_item
+
+- import_tasks: folders.yml
+  when: >
+    local_system_uppercase_folders is defined
+    or local_system_projects_paths is defined
+
+- import_tasks: gnupg.yml
+
+- import_tasks: pip.yml
+  when:
+    - local_system_pip is defined
+    - local_system_pip is not false
+
+- import_tasks: vim.yml
+
+- import_tasks: yakuake.yml
+
+- name: Determine which session-type we are
+  shell: loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type --value
+  register: local_system_session
+  changed_when: false
+
+- import_tasks: wayland_ssh_agent.yml
+  when: local_system_session.stdout == "wayland"
+
+- import_tasks: bat.yml
+  when:
+    - local_system_bat is defined
+    - local_system_bat is not false
+
+- import_tasks: diff_so_fancy.yml
+  when:
+    - local_system_dsf is defined
+    - local_system_dsf is not false
+
+- import_tasks: fzf.yml
+  when:
+    - local_system_fzf is defined
+    - local_system_fzf is not false
+
+- import_tasks: genact.yml
+  when:
+    - local_system_genact is defined
+    - local_system_genact is not false
+
+- import_tasks: pretty_ping.yml
+  when:
+    - local_system_prettyping is defined
+    - local_system_prettyping is not false

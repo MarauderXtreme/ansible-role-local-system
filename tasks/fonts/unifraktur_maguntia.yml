@@ -1,0 +1,24 @@
+---
+
+- name: Ensure presence of fonts-dir
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - ~/.local/share/fonts/UnifrakturMaguntia
+    - /tmp/unifraktur
+
+- name: Download Unifraktur Maguntia
+  unarchive:
+    src: "https://sourceforge.net/projects/unifraktur/files/fonts/UnifrakturMaguntia.{{ local_system_unifraktur }}.zip/download"
+    dest: /tmp/unifraktur
+    remote_src: yes
+    mode: "0755"
+
+- name: Copy over Unifraktur Maguntia
+  copy:
+    src: /tmp/unifraktur/UnifrakturMaguntia.{{ local_system_unifraktur }}/UnifrakturMaguntia.ttf
+    dest: ~/.local/share/fonts/UnifrakturMaguntia/UnifrakturMaguntia.ttf
+    remote_src: yes
+    mode: '0644'
+  notify: font-cache
