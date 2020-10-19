@@ -36,7 +36,7 @@
 - name: Create various .shorten_folder_marker
   copy:
     content: ""
-    path: "{{ item }}/.shorten_folder_marker"
+    dest: "{{ item }}/.shorten_folder_marker"
     mode: "0664"
   loop: "{{ local_system_paths_unshorten }}"
 
