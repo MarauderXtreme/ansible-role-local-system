@@ -1,39 +1,44 @@
+# my personal preference
 alias ll='ls -lishA'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias cd..='cd ..'
-#alias grep='grep -v grep| grep --color'
-alias pwgen='pwgen -Bync 32'
+alias lla='ls -lisha'
 
-alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+# maybe this can be fixed later
+# alias grep='grep -v grep| grep --color'
+
+# sane or better defaults for certain programms
+alias pwgen='pwgen -Bync 32'
 alias jekyll="bundler exec jekyll"
+
+# rewrite shell utilities to "better" versions
+# \command runs the programm without alias
+alias ping='prettyping --nolegend'
+alias cat='bat'
+
+# short-hands for various shell problems
+alias edit='vim'
+alias nmap-up='sudo nmap -A -T4'
+alias termscreensaver='cmatrix -b -s'
 alias desktop-logout='qdbus org.kde.ksmserver /KSMServer logout 0 3 3'
 alias most-used="history | awk '{print $5}' | sort | uniq -c | sort -n | tail -n 20 | tac"
+# apparently this doesn't work anymore
+# alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 
 # Entnazifizierung der Kommandozeile
 alias ß="ss"
 
+# cliping made easy
 alias c="xclip"
 alias cs="xclip -selection clipboard"
 alias v="xclip -o"
 alias vs="xclip -o -selection clipboard"
 
+# clip the pub-key fast
 alias clip-key="cs ~/.ssh/id_ed25519.pub"
 
-alias edit='vim'
-
-ro-edit() {
-	for F in "$@"; do
-		if [ -f "$F" ]; then
-			chmod u+w $F
-			edit $F
-			chmod u-w $F
-		fi
-	done
-}
-
+# short-hand for setting up commit author information
 alias git-real-name='git config user.name "Christoph Kepler"'
 
+# Functions section
 git-config() {
 	case $1 in
 		ag)
@@ -49,20 +54,84 @@ git-config() {
 	git config user.email "$EMAIL"
 }
 
-# alias please='sudo "$BASH" -c "$(history -p !!)"'
-# alias fuck='sudo "$BASH" -c "$(history -p !!)"'
+# function for editing currently read-only files
+ro-edit() {
+	for F in "$@"; do
+		if [ -f "$F" ]; then
+			chmod u+w "$F"
+			edit "$F"
+			chmod u-w "$F"
+		fi
+	done
+}
 
-alias nmap-up='sudo nmap -A -T4'
+# new version of myip with curl and nice things
+myip() {
+	if [[ -z "$1" ]]; then
+		curl -sSfL --retry 3 -w '\n' --url https://diagnostic.opendns.com/myip
+	elif [[ "$1" -eq 4 ]]; then
+		curl -sSfL --retry 3 -w '\n' --url https://v4.ident.me/
+	elif [[ "$1" -eq 6 ]]; then
+		curl -sSfL --retry 3 -w '\n' --url https://v6.ident.me/
+	else
+		\cat << _EOF_
+This function shows the current public_ip of the host. Curls either opendns as
+endpoint or (v4|v6).indent.me for more stable output of the wanted info.
+Usage:
+myip                … query diagnotic.opendns.com/myip
+myip [-h|--help|*]  … show this message
+myip 4              … query v4.ident.me
+myip 6              … query v6.ident.me
+_EOF_
+	fi
+}
 
-alias termscreensaver='cmatrix -b -s'
+# remove remains from super-linter runs to prevent appending
+remove-super-linter-log () {
+	if [[ -f "$1/super-linter.log" ]]; then
+		read -rp "Remove old super-lint.log [Y|n|append]: " ANSWER
+		case "$ANSWER" in
+			n|no|N|No|NO|nein|Nein|NEIN)
+				echo "exiting now"
+				exit 0;;
+			a|append|A|Append|APPEND)
+				echo "appending to the old logfile";;
+			''|y|Y|yes|Yes|YES|j|J|ja|Ja|JA)
+				rm -f "$1/super-linter.log";;
+			*)
+				echo "Not recognized input. Exiting now."
+				exit 1;;
+		esac
+	fi
+}
 
-alias ping='prettyping --nolegend'
-alias cat='bat'
-
-alias super-lint-here='docker run --rm -e RUN_LOCAL=true -v "$PWD":/tmp/lint github/super-linter'
+# run github/super-linter container anywhere or with any path
+super-lint () {
+	if [[ -z "$1" ]]; then
+		remove-super-linter-log "$PWD"
+		docker run --rm -e RUN_LOCAL=true -v "$PWD":/tmp/lint github/super-linter
+	elif [[ -d "$1" ]]; then
+		if [[ "$1" = ~* ]] || [[ "$1" = /* ]]; then
+			remove-super-linter-log "$1"
+			docker run --rm -e RUN_LOCAL=true -v "$1":/tmp/lint github/super-linter
+		else
+			\cat << _EOF_
+Docker does not support relative volume mounts. Either use absolute paths like
+/path/to/directory or home paths like ~/path/to/directory.
+_EOF_
+		fi
+	fi
+}
 
 show-colors() {
+	if [[ "$SHELL" = *bash ]]; then
+		echo "does not work in bash. exiting now"
+		exit 1
+	fi
 	for CODE in {000..255}; do
 		print -P -- "$CODE: %F{$CODE}This is how your text would look like%f"
 	done
 }
+
+# setup missing auto-complete
+eval "$(_MOLECULE_COMPLETE=source molecule)"
