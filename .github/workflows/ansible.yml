@@ -29,7 +29,7 @@ jobs:
         with:
           docker_channel: stable
       - name: Install dependencies
-        run: pip install molecule ansible-lint docker
+        run: pip install molecule molecule-docker ansible-lint docker
       - name: Run molecule lint
         working-directory: local_system
         run: MOLECULE_DISTRO=${{ matrix.molecule_distro }} molecule lint
@@ -53,7 +53,7 @@ jobs:
         with:
           docker_channel: stable
       - name: Install dependencies
-        run: pip install molecule ansible-lint docker
+        run: pip install molecule molecule-docker ansible-lint docker
       - name: Run molecule test for ${{ matrix.molecule_distro }}
         working-directory: local_system
         run: MOLECULE_DISTRO=${{ matrix.molecule_distro }} molecule test
