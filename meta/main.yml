@@ -36,7 +36,6 @@ galaxy_info:
 
 dependencies:
   - src: geerlingguy.nodejs
-    name: nodejs
 
 collections:
   - community.general

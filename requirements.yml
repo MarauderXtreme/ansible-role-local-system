@@ -2,4 +2,4 @@ collections:
   - name: community.general
 
 roles:
-  - name: geerlingguy.nodejs
+  - src: geerlingguy.nodejs
