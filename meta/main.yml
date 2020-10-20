@@ -1,5 +1,5 @@
 galaxy_info:
-  name: local_system
+  role_name: local_system
   author: Christoph Kepler
   description: Reference - Setup for my workstation
   license: MIT
