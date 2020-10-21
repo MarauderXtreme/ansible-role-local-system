@@ -89,7 +89,8 @@ _EOF_
 # remove remains from super-linter runs to prevent appending
 remove-super-linter-log () {
 	if [[ -f "$1/super-linter.log" ]]; then
-		read -rp "Remove old super-lint.log [Y|n|append]: " ANSWER
+		echo -n "Remove old super-lint.log [Y|n|append]: "
+		read -r ANSWER
 		case "$ANSWER" in
 			n|no|N|No|NO|nein|Nein|NEIN)
 				echo "exiting now"
