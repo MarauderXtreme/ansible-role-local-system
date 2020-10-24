@@ -4,6 +4,7 @@ name: Super-lint project
 
 on:
   push: {}
+  pull_request: {}
 
 jobs:
   lint:
