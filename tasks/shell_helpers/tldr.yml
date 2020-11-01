@@ -4,6 +4,7 @@
   git:
     repo: https://github.com/raylee/tldr-sh-client.git
     dest: ~/projects/shell-helpers/tldr-sh-client
+    version: "{{ local_system_tldr }}"
     depth: "1"
 
 - name: Ensure presence of dependencies
