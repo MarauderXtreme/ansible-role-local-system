@@ -55,3 +55,8 @@
   when:
     - local_system_prettyping is defined
     - local_system_prettyping is not false
+
+- import_tasks: tldr.yml
+  when:
+    - local_system_tldr is defined
+    - local_system_tldr is not false

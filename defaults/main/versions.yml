@@ -18,6 +18,8 @@ local_system_genact: "v0.10.0"
 
 local_system_prettyping: "v1.0.1"
 
+local_system_tldr: "master"
+
 # font versions
 local_system_firacode: "5.2"
 
