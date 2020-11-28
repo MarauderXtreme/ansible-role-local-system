@@ -10,14 +10,14 @@
 
 - name: Download Iosevka SS05 (Fira Style) Package
   unarchive:
-    src: "https://github.com/be5invis/Iosevka/releases/download/{{ local_system_iosevka }}/pkg-iosevka-ss05-{{ local_system_iosevka[1:] }}.zip"
+    src: "https://github.com/be5invis/Iosevka/releases/download/{{ local_system_iosevka }}/ttf-iosevka-ss05-{{ local_system_iosevka[1:] }}.zip"
     dest: /tmp/iosevka
     remote_src: yes
     mode: "0755"
 
 - name: Copy over Iosevka TTFs
   copy:
-    src: /tmp/iosevka/ttf/
+    src: /tmp/iosevka/
     dest: ~/.local/share/fonts/iosevka
     remote_src: yes
     mode: "0644"
