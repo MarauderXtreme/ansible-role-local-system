@@ -8,7 +8,7 @@ local_system_omz_p10k: "v1.12.0"
 local_system_omz_autosuggests: "v0.6.4"
 
 # shell-helper versions
-local_system_bat: "v0.16.0"
+local_system_bat: "v0.17.1"
 
 local_system_dsf: "1.3.0"
 
