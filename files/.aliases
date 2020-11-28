@@ -7,7 +7,12 @@ alias lla='ls -lisha'
 
 # sane or better defaults for certain programms
 alias pwgen='pwgen -Bync 32'
-alias jekyll="bundler exec jekyll"
+# alias jekyll="bundler exec jekyll"
+# typeset -g JEKYLL_DOCKER='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION"'
+alias jekyll='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION" jekyll'
+alias jekyll-bash='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION" bash'
+alias jekyll-bundle='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle jekyll/jekyll:"$JEKYLL_VERSION" bundle'
+alias jekyll-npm='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle jekyll/jekyll:"$JEKYLL_VERSION" npm'
 
 # rewrite shell utilities to "better" versions
 # \command runs the programm without alias
