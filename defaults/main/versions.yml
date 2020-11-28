@@ -23,7 +23,7 @@ local_system_tldr: "master"
 # font versions
 local_system_firacode: "5.2"
 
-local_system_iosevka: "v3.6.3"
+local_system_iosevka: "v4.0.0"
 
 local_system_unifraktur: "2017-03-19"
 
