@@ -19,20 +19,27 @@
 
     - name: Ensure presence of fonts-dir
       ansible.builtin.file:
-        path: ~/.local/share/fonts/FiraCode
+        path: "{{ item }}"
         state: directory
-
-    - name: Download FiraCode Font Files
-      ansible.builtin.get_url:
-        url: "https://github.com/tonsky/FiraCode/blob/{{ local_system_firacode }}/distr/ttf/FiraCode-{{ item }}.ttf?raw=true"
-        dest: "~/.local/share/fonts/FiraCode/FiraCode-{{ item }}.ttf"
-        mode: '0644'
+        mode: "0775"
       loop:
-        - Bold
-        - Light
-        - Medium
-        - Regular
-        - Retina
+        - ~/.local/share/fonts/FiraCode
+        - /tmp/FiraCode
+
+    - name: Download FiraCode Font Archive and extract
+      ansible.builtin.unarchive:
+        src: "https://github.com/tonsky/FiraCode/releases/download/{{ local_system_firacode }}/Fira_Code_v{{ local_system_firacode }}.zip"
+        dest: /tmp/FiraCode
+        remote_src: true
+
+    - name: Place FiraCode in user font folder
+      ansible.posix.synchronize:
+        src: /tmp/FiraCode/ttf/
+        dest: "{{ ansible_env.HOME }}/.local/share/fonts/FiraCode"
+        checksum: true
+        archive: false
+        recursive: true
+      delegate_to: "{{ inventory_hostname }}"
       notify: font-cache
 
   when: local_system_firacode != 'package'

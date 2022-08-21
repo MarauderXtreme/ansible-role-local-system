@@ -4,6 +4,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "0775"
   loop:
     - ~/.local/share/fonts/iosevka
     - /tmp/iosevka
@@ -20,5 +21,5 @@
     src: /tmp/iosevka/
     dest: ~/.local/share/fonts/iosevka
     remote_src: yes
-    mode: "0644"
+    mode: "0755"
   notify: font-cache

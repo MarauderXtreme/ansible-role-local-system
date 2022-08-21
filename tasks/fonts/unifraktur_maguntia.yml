@@ -4,13 +4,14 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "0775"
   loop:
     - ~/.local/share/fonts/UnifrakturMaguntia
     - /tmp/unifraktur
 
 - name: Download Unifraktur Maguntia
   ansible.builtin.unarchive:
-    src: "https://sourceforge.net/projects/unifraktur/files/fonts/UnifrakturMaguntia.{{ local_system_unifraktur }}.zip/download"
+    src: "https://sourceforge.net/projects/unifraktur/files/fonts/UnifrakturMaguntia.{{ local_system_unifraktur }}.zip/download#"
     dest: /tmp/unifraktur
     remote_src: yes
     mode: "0755"

@@ -4,6 +4,7 @@
   ansible.builtin.file:
     path: ~/.local/share/fonts/NerdFonts
     state: directory
+    mode: "0755"
 
 - name: Clone nerdfonts
   ansible.builtin.git:
