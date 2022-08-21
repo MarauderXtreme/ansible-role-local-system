@@ -15,7 +15,7 @@ jobs:
         with:
           path: local_system
       - name: Run Super-Linter for everything
-        uses: github/super-linter@v3.13.0
+        uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: yes
           DEFAULT_BRANCH: main
