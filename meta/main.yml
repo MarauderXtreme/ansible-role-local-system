@@ -4,11 +4,10 @@ galaxy_info:
   author: Christoph Kepler
   description: Reference - Setup for my workstation
   license: MIT
-  min_ansible_version: 2.9.11
+  min_ansible_version: "2.10"
   platforms:
     - name: Ubuntu
       versions:
-        - xenial
         - bionic
         - focal
     - name: Debian
@@ -37,6 +36,7 @@ galaxy_info:
 
 dependencies:
   - src: geerlingguy.nodejs
+    become: true
 
 collections:
   - community.general
