@@ -8,6 +8,7 @@
     depth: "1"
 
 - name: Ensure presence of dependencies
+  become: true
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
@@ -16,12 +17,19 @@
     - iputils-ping
     - gawk
 
-- name: Download prettyping and place globally
-  become: yes
+- name: Copy prettyping to /tmp
   ansible.builtin.copy:
     src: ~/projects/shell-helpers/prettyping/prettyping
+    dest: /tmp/prettyping
+    remote_src: true
+    mode: "0755"
+
+- name: Install prettyping from /tmp
+  become: true
+  ansible.builtin.copy:
+    src: /tmp/prettyping
     dest: /usr/local/bin/prettyping
-    remote_src: yes
+    remote_src: true
     mode: "0755"
     owner: root
     group: root

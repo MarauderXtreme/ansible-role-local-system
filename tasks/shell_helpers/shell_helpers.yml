@@ -30,7 +30,11 @@
   ansible.builtin.import_tasks: yakuake.yml
 
 - name: Determine which session-type we are
-  ansible.builtin.shell: loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type --value
+  ansible.builtin.shell: |
+    set -euo pipefail
+    loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type --value
+  args:
+    executable: /usr/bin/bash
   register: local_system_session
   changed_when: false
 

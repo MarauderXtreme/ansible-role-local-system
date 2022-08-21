@@ -1,11 +1,13 @@
 ---
 
 - name: Ensure xz-utils are present
+  become: true
   ansible.builtin.package:
     name: xz-utils
     state: present
 
 - name: Download bat from github for debian-based systems
+  become: true
   ansible.builtin.apt:
     deb: "https://github.com/sharkdp/bat/releases/download/{{ local_system_bat }}/bat_{{ local_system_bat[1:] }}_amd64.deb"
 

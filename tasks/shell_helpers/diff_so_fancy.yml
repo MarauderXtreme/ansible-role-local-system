@@ -8,6 +8,7 @@
 # Set changed only when dsf is not already present
 # apparently npm: global=yes sets always changed to true
 - name: Install diff-so-fancy via npm
+  become: true
   community.general.npm:
     global: yes
     name: "diff-so-fancy@{{ local_system_dsf }}"

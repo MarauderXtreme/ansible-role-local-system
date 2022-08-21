@@ -8,18 +8,26 @@
     depth: "1"
 
 - name: Ensure presence of dependencies
+  become: true
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
   loop:
     - curl
 
-- name: Install tldr-sh-client
-  become: yes
+- name: Copy tldr to /tmp
   ansible.builtin.copy:
     src: ~/projects/shell-helpers/tldr-sh-client/tldr
+    dest: /tmp/tldr
+    remote_src: true
+    mode: "0755"
+
+- name: Install tldr-sh-client from /tmp
+  become: true
+  ansible.builtin.copy:
+    src: /tmp/tldr
     dest: /usr/local/bin/tldr
-    remote_src: yes
+    remote_src: true
     mode: "0755"
     owner: root
     group: root
