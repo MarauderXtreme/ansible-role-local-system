@@ -1,7 +1,7 @@
 ---
 
 - name: Check if /usr/lib/node_modules/diff-so-fancy/diff-so-fancy exists
-  stat:
+  ansible.builtin.stat:
     path: /usr/lib/node_modules/diff-so-fancy/diff-so-fancy
   register: local_system_dsf_executable
 

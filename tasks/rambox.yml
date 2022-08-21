@@ -1,21 +1,21 @@
 ---
 
 - name: Ensure xz-utils are present
-  package:
+  ansible.builtin.package:
     name: xz-utils
     state: present
 
 - name: Set Rambox download link to ce
-  set_fact:
+  ansible.builtin.set_fact:
     local_system_rambox_download: "https://github.com/ramboxapp/community-edition/releases/download/{{ local_system_ramboxce }}/Rambox-{{ local_system_ramboxce }}-linux-amd64.deb"
   when: local_system_rambox == "ce"
 
 - name: Set Rambox download link to pro
-  set_fact:
+  ansible.builtin.set_fact:
     local_system_rambox_download: https://github.com/ramboxapp/download/releases/download/{{ local_system_ramboxpro }}/RamboxPro-{{ local_system_ramboxpro[1:] }}-linux-x64.deb
   when: local_system_rambox == "pro"
 
 - name: Download and install Rambox
-  apt:
+  ansible.builtin.apt:
     deb: "{{ local_system_rambox_download }}"
   when: (ansible_os_family | lower) == "debian"

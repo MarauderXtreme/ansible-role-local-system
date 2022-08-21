@@ -1,17 +1,17 @@
 ---
 
 - name: Setup NOPASSWD for sudo
-  import_tasks: sudo.yml
+  ansible.builtin.import_tasks: sudo.yml
 
 - name: "Ensure {{ ansible_user_id }} is in group sudo"
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     groups:
       - sudo
     append: yes
 
 - name: Ensure presence of python3, pip and py3-devel
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   loop:

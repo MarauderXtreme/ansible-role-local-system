@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure presence of fonts-dir
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
@@ -9,14 +9,14 @@
     - /tmp/iosevka
 
 - name: Download Iosevka SS05 (Fira Style) Package
-  unarchive:
+  ansible.builtin.unarchive:
     src: "https://github.com/be5invis/Iosevka/releases/download/{{ local_system_iosevka }}/ttf-iosevka-ss05-{{ local_system_iosevka[1:] }}.zip"
     dest: /tmp/iosevka
     remote_src: yes
     mode: "0755"
 
 - name: Copy over Iosevka TTFs
-  copy:
+  ansible.builtin.copy:
     src: /tmp/iosevka/
     dest: ~/.local/share/fonts/iosevka
     remote_src: yes

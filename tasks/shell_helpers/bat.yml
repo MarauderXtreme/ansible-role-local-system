@@ -1,21 +1,21 @@
 ---
 
 - name: Ensure xz-utils are present
-  package:
+  ansible.builtin.package:
     name: xz-utils
     state: present
 
 - name: Download bat from github for debian-based systems
-  apt:
+  ansible.builtin.apt:
     deb: "https://github.com/sharkdp/bat/releases/download/{{ local_system_bat }}/bat_{{ local_system_bat[1:] }}_amd64.deb"
 
 - name: Create initial bat config
-  command:
+  ansible.builtin.command:
     cmd: bat --generate-config-file
     creates: ~/.config/bat/config
 
 - name: Configure ansi-dark as bat theme
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: ~/.config/bat/config
     regexp: '^#--theme="TwoDark"'
     line: '--theme="ansi-dark"'

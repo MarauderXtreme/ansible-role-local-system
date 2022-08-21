@@ -1,12 +1,12 @@
 ---
 
 - name: Ensure presence of fonts-dir
-  file:
+  ansible.builtin.file:
     path: ~/.local/share/fonts/NerdFonts
     state: directory
 
 - name: Clone nerdfonts
-  git:
+  ansible.builtin.git:
     repo: https://github.com/ryanoasis/nerd-fonts.git
     dest: ~/projects/nerd-fonts
     version: master
@@ -15,6 +15,6 @@
   notify: nerdfont-install
 
 - name: Make install.sh executable
-  file:
+  ansible.builtin.file:
     path: ~/projects/nerd-fonts/install.sh
     mode: "a+x"

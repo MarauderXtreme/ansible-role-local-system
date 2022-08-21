@@ -1,7 +1,7 @@
 ---
 
 - name: "Add {{ item.name | default('extra_software') }} apt key from website"
-  apt_key:
+  ansible.builtin.apt_key:
     url: "{{ item.url }}"
     id: "{{ item.id | default(omit) }}"
     state: present
@@ -10,7 +10,7 @@
   become: yes
 
 - name: "Add {{ item.name | default('extra_software') }} apt key from keyserver"
-  apt_key:
+  ansible.builtin.apt_key:
     id: "{{ item.id | default(omit) }}"
     keyserver: "{{ item.keyserver }}"
     state: present
@@ -19,14 +19,14 @@
   become: yes
 
 - name: "Add {{ item.name | default('extra_software') }} ppa"
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item.repo }}"
     filename: "{{ item.name }}"
   loop: "{{ local_system_extra_software.ubuntu }}"
   become: yes
 
 - name: "Install {{ item.package | default('extra_software') }}"
-  apt:
+  ansible.builtin.apt:
     name: "{{ item.package }}"
     state: present
     cache_valid_time: 300
