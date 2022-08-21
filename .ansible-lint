@@ -1,2 +1,14 @@
+---
+
 exclude_paths:
-  ../
+  - .cache
+  - .github
+
+kinds:
+  # - playbook: "**/examples/*.{yml,yaml}"
+  # - galaxy: "**/folder/galaxy.yml"
+  # - tasks: "**/tasks/*.yml"
+  # - vars: "**/vars/*.yml"
+  # - meta: "**/meta/main.yml"
+  - vars: "**/inventory.yml"
+  - yaml: "**/*.yaml-too"
