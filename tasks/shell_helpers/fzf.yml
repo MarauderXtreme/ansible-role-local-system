@@ -1,18 +1,18 @@
 ---
 
 - name: Clone FZF
-  git:
+  ansible.builtin.git:
     repo: https://github.com/junegunn/fzf.git
     dest: ~/projects/shell-helpers/fzf
     version: "{{ local_system_fzf }}"
     depth: "1"
 
 - name: Make fzf install script executable
-  file:
+  ansible.builtin.file:
     path: ~/projects/shell-helpers/fzf/install
     mode: "a+x"
 
 - name: Install FZF
-  command: ~/projects/shell-helpers/fzf/install --all
+  ansible.builtin.command: ~/projects/shell-helpers/fzf/install --all
   args:
     creates: ~/.fzf.*

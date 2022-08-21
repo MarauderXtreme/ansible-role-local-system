@@ -1,12 +1,12 @@
 ---
 
 - name: Install sudo package
-  package:
+  ansible.builtin.package:
     name: sudo
     state: present
 
 - name: Create sudo group
-  group:
+  ansible.builtin.group:
     name: "{{ item }}"
     system: yes
     state: present
@@ -15,7 +15,7 @@
     - sudo-password
 
 - name: Install new sudoers after validation
-  copy:
+  ansible.builtin.copy:
     src: sudoers
     dest: /etc/sudoers
     validate: 'visudo -cf %s'

@@ -1,13 +1,13 @@
 ---
 
 - name: Ensure ~/.config/autostart-scripts is present
-  file:
+  ansible.builtin.file:
     path: ~/.config/autostart-scripts
     state: directory
     mode: "0775"
 
 - name: Copy yakuake autostart script
-  copy:
+  ansible.builtin.copy:
     src: yakuake.sh
     dest: ~/.config/autostart-scripts/yakuake
     mode: "0775"

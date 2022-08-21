@@ -1,19 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  pre_tasks:
-    - name: Warmup apt cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
-      when: (ansible_os_family | lower) == "debian"
-    - name: Create certain man directories needed for install
-      file:
-        path: "/usr/share/man/man{{ item }}"
-        state: directory
-      with_sequence: start=1 end=8
-      when: (ansible_os_family | lower) == "debian"
   tasks:
     - name: "Include local_system"
-      include_role:
+      ansible.builtin.include_role:
         name: "local_system"

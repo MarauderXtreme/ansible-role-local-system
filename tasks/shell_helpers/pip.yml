@@ -1,7 +1,7 @@
 ---
 
 - name: Install nice things from pip to user dir
-  pip:
+  ansible.builtin.pip:
     name: "{{ item }}"
     extra_args: --user
   loop: "{{ local_system_pip }}"

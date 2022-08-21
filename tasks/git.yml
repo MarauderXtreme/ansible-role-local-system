@@ -8,7 +8,7 @@
   loop: "{{ local_system_gitconfig }}"
 
 - name: Place .cvsignore in ~
-  copy:
+  ansible.builtin.copy:
     src: .cvsignore
     dest: ~/.cvsignore
     mode: "0640"

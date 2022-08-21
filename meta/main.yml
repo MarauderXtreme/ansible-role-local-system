@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: local_system
+  namespace: marauderxtreme
   author: Christoph Kepler
   description: Reference - Setup for my workstation
   license: MIT

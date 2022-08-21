@@ -1,14 +1,14 @@
 ---
 
 - name: Clone tldr-sh-client
-  git:
+  ansible.builtin.git:
     repo: https://github.com/raylee/tldr-sh-client.git
     dest: ~/projects/shell-helpers/tldr-sh-client
     version: "{{ local_system_tldr }}"
     depth: "1"
 
 - name: Ensure presence of dependencies
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   loop:
@@ -16,7 +16,7 @@
 
 - name: Install tldr-sh-client
   become: yes
-  copy:
+  ansible.builtin.copy:
     src: ~/projects/shell-helpers/tldr-sh-client/tldr
     dest: /usr/local/bin/tldr
     remote_src: yes

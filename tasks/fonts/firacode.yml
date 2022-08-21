@@ -4,7 +4,7 @@
   block:
 
   - name: Install fonts-firacode
-    package:
+    ansible.builtin.package:
       name: fonts-firacode
       state: present
     when: >
@@ -18,12 +18,12 @@
   block:
 
     - name: Ensure presence of fonts-dir
-      file:
+      ansible.builtin.file:
         path: ~/.local/share/fonts/FiraCode
         state: directory
 
     - name: Download FiraCode Font Files
-      get_url:
+      ansible.builtin.get_url:
         url: "https://github.com/tonsky/FiraCode/blob/{{ local_system_firacode }}/distr/ttf/FiraCode-{{ item }}.ttf?raw=true"
         dest: "~/.local/share/fonts/FiraCode/FiraCode-{{ item }}.ttf"
         mode: '0644'

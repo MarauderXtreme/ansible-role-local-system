@@ -1,7 +1,7 @@
 ---
 
 - name: Copy bash configs
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "~/{{ item }}"
     mode: "0640"
@@ -11,7 +11,7 @@
     - .aliases
 
 - name: Symlink .aliases
-  file:
+  ansible.builtin.file:
     src: ~/.aliases
     dest: ~/.bash_aliases
     state: link

@@ -1,24 +1,26 @@
 ---
 
 - name: Set local_system_packages for debian-based systems
-  set_fact:
+  ansible.builtin.set_fact:
     local_system_packages: "{{ local_system_general_packages + local_system_ppa_packages + local_system_debian_packages }}"
 
 - name: Ensure python3-apt is installed
-  apt:
+  ansible.builtin.apt:
     name: python3-apt
     state: present
-  become: yes
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
 
 - name: Activate all neat PPAs
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item }}"
   loop: "{{ local_system_ppa }}"
-  become: yes
+  become: true
 
 - name: Ensure presence of useful software
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   loop: "{{ local_system_packages }}"
-  become: yes
+  become: true

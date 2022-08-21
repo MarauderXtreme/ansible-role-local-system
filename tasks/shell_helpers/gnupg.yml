@@ -1,13 +1,13 @@
 ---
 
 - name: Ensure presence of ~/.gnupg
-  file:
+  ansible.builtin.file:
     path: ~/.gnupg
     state: directory
     mode: "0700"
 
 - name: Place hardened gnupg configs
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "~/.gnupg/{{ item }}"
     mode: "0644"
