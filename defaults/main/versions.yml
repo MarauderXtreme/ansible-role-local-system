@@ -4,38 +4,24 @@
 
 # oh-my-zsh versions
 local_system_omz: master
-local_system_omz_p10k: "v1.14.3"
-local_system_omz_autosuggests: "v0.6.4"
+local_system_omz_p10k: "v1.16.1"
+local_system_omz_autosuggests: "v0.7.0"
 
 # shell-helper versions
-local_system_bat: "v0.17.1"
-
-local_system_dsf: "1.3.0"
-
-local_system_fzf: "0.24.3"
-
-local_system_genact: "v0.10.0"
-
+local_system_bat: "v0.21.0"
+local_system_dsf: "1.4.3"
+local_system_fzf: "0.32.1"
+local_system_genact: "v0.12.0"
 local_system_prettyping: "v1.0.1"
-
-local_system_tldr: "master"
+local_system_tldr: "main"
 
 # font versions
-local_system_firacode: "5.2"
-
-local_system_iosevka: "v4.0.0"
-
+local_system_firacode: "6.2"
+local_system_iosevka: "v16.0.0"
 local_system_unifraktur: "2017-03-19"
-
 local_system_nerdfonts:
   - "FiraCode"
   - "FiraMono"
   - "Iosevka"
 
-# rambox versions
-
-local_system_rambox: "pro"
-
-local_system_ramboxce: "0.7.7"
-
-local_system_ramboxpro: "v1.4.1"
+local_system_rambox: "v2.0.6"
