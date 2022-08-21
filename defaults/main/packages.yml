@@ -23,7 +23,6 @@ local_system_ppa_packages:
   - neofetch
   - openssl
   - dbeaver-ce
-  - postman
   - asciinema
   - open-fprintd
   - fprintd-clients

@@ -15,7 +15,7 @@ local_system_ppa:
   - ppa:ondrej/nginx-mainline
   # - ppa:otto-kesselgulasch/gimp
   - ppa:serge-rider/dbeaver-ce
-  - ppa:tiagohillebrandt/postman
+  # - ppa:tiagohillebrandt/postman
   - ppa:ubuntu-mozilla-security/ppa
   - ppa:uunicorn/open-fprintd
   # - ppa:zanchey/asciinema
