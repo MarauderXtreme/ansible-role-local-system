@@ -1,3 +1,6 @@
+---
+
 all:
   hosts:
-    local_system: {}
+    local-system:
+      local_system_bat: false

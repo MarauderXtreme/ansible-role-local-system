@@ -2,22 +2,21 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
     requirements-file: requirements.yml
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: virtualbox
 lint: |
   set -e
   yamllint .
   ansible-lint
 platforms:
-  - name: local_system
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible:latest"
+  - name: local-system
+    box: ubuntu/focal64
+    memory: 2048
+    cpus: 2
     command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: true
 provisioner:
   name: ansible
   playbooks:
