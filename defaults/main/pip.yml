@@ -1,5 +1,4 @@
 ---
 
 local_system_pip:
-  - thefuck
   - powerline-status

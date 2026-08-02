@@ -1,23 +1,26 @@
 # my personal preference
 alias ll='ls -lishA'
 alias lla='ls -lisha'
+alias mtr='mtr -t'
 
 # maybe this can be fixed later
 # alias grep='grep -v grep| grep --color'
 
 # sane or better defaults for certain programms
 alias pwgen='pwgen -Bync 32'
+alias pwgen-pin='\pwgen -Ar abcdefghijklmnopqrstuvwxyz'
 # alias jekyll="bundler exec jekyll"
-# typeset -g JEKYLL_DOCKER='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION"'
-alias jekyll='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION" jekyll'
-alias jekyll-bash='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION" bash'
-alias jekyll-bundle='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle jekyll/jekyll:"$JEKYLL_VERSION" bundle'
-alias jekyll-npm='docker run -it --rm -v "$PWD":/srv/jekyll -v "$PWD/vendor/bundle":/usr/local/bundle jekyll/jekyll:"$JEKYLL_VERSION" npm'
+typeset -g JEKYLL_DOCKER='docker run -it --rm -v "$(pwd)":/srv/jekyll -v "$(pwd)/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION"'
+alias jekyll='docker run -it --rm -v "$(pwd)":/srv/jekyll -v "$(pwd)/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION" jekyll'
+alias jekyll-npm='docker run -it --rm -v "$(pwd)":/srv/jekyll -v "$(pwd)/vendor/bundle":/usr/local/bundle jekyll/jekyll:"$JEKYLL_VERSION" npm'
+alias jekyll-bundle='docker run -it --rm -v "$(pwd)":/srv/jekyll -v "$(pwd)/vendor/bundle":/usr/local/bundle jekyll/jekyll:"$JEKYLL_VERSION" bundle'
+alias jekyll-bash='docker run -it --rm -v "$(pwd)":/srv/jekyll -v "$(pwd)/vendor/bundle":/usr/local/bundle -p 127.0.0.1:4000:4000 jekyll/jekyll:"$JEKYLL_VERSION" bash'
 
 # rewrite shell utilities to "better" versions
 # \command runs the programm without alias
 alias ping='prettyping --nolegend'
 alias cat='bat'
+alias command-check='/usr/lib/command-not-found --ignore-installed'
 
 # short-hands for various shell problems
 alias edit='vim'
@@ -25,6 +28,7 @@ alias nmap-up='sudo nmap -A -T4'
 alias termscreensaver='cmatrix -b -s'
 alias desktop-logout='qdbus org.kde.ksmserver /KSMServer logout 0 3 3'
 alias most-used="history | awk '{print $5}' | sort | uniq -c | sort -n | tail -n 20 | tac"
+alias kde-inotify-survey-totals="kde-inotify-survey | jq '.totals'"
 # apparently this doesn't work anymore
 # alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 
@@ -39,6 +43,9 @@ alias vs="xclip -o -selection clipboard"
 
 # clip the pub-key fast
 alias clip-key="cs ~/.ssh/id_ed25519.pub"
+
+# learn host_keys
+alias learn-host-keys='ssh -o "HostKeyAlgorithms ecdsa-sha2-nistp256-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ecdsa-sha2-nistp256,ssh-ed25519,ssh-rsa,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521,ecdsa-sha2-nistp384" -o "UpdateHostKeys ask"'
 
 # short-hand for setting up commit author information
 alias git-real-name='git config user.name "Christoph Kepler"'
@@ -93,40 +100,70 @@ _EOF_
 
 # remove remains from super-linter runs to prevent appending
 remove-super-linter-log () {
-	if [[ -f "$1/super-linter.log" ]]; then
-		echo -n "Remove old super-lint.log [Y|n|append]: "
-		read -r ANSWER
-		case "$ANSWER" in
-			n|no|N|No|NO|nein|Nein|NEIN)
-				echo "exiting now"
-				exit 0;;
-			a|append|A|Append|APPEND)
-				echo "appending to the old logfile";;
-			''|y|Y|yes|Yes|YES|j|J|ja|Ja|JA)
-				rm -f "$1/super-linter.log";;
-			*)
-				echo "Not recognized input. Exiting now."
-				exit 1;;
-		esac
-	fi
+  if [[ -f "$1/super-linter.log" ]]; then
+    echo -n "Remove old super-lint.log [Y|n|append]: "
+    read -r ANSWER
+    case "$ANSWER" in
+      n|no|N|No|NO|nein|Nein|NEIN)
+        echo "exiting now"
+        exit 0;;
+      a|append|A|Append|APPEND)
+        echo "appending to the old logfile";;
+      ''|y|Y|yes|Yes|YES|j|J|ja|Ja|JA)
+        rm -f "$1/super-linter.log";;
+      *)
+        echo "Not recognized input. Exiting now."
+        exit 1;;
+    esac
+  fi
 }
 
 # run github/super-linter container anywhere or with any path
 super-lint () {
-	if [[ -z "$1" ]]; then
-		remove-super-linter-log "$PWD"
-		docker run --rm -e RUN_LOCAL=true -v "$PWD":/tmp/lint github/super-linter
-	elif [[ -d "$1" ]]; then
-		if [[ "$1" = ~* ]] || [[ "$1" = /* ]]; then
-			remove-super-linter-log "$1"
-			docker run --rm -e RUN_LOCAL=true -v "$1":/tmp/lint github/super-linter
-		else
-			\cat << _EOF_
+  if [[ -z "$1" ]]; then
+    remove-super-linter-log "$(pwd)"
+    if [[ -f "$(pwd)/.github/super-linter.env"  ]]; then
+      docker run --rm -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=false --env-file "$(pwd)/.github/super-linter.env" -v "$(pwd)":/tmp/lint github/super-linter:slim-latest
+    else
+      docker run --rm -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=false -v "$(pwd)":/tmp/lint github/super-linter:slim-latest
+    fi
+  elif [[ -d "$1" ]]; then
+    if [[ "$1" = ~* ]] || [[ "$1" = /* ]]; then
+      remove-super-linter-log "$1"
+      if [[ -f "$1/.github/super-linter.env"  ]]; then
+        docker run --rm -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=false --env-file "$1/.github/super-linter.env" -v "$1":/tmp/lint github/super-linter:slim-latest
+      else
+        docker run --rm -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=false -v "$1":/tmp/lint github/super-linter:slim-latest
+      fi
+    else
+      \cat << _EOF_
 Docker does not support relative volume mounts. Either use absolute paths like
 /path/to/directory or home paths like ~/path/to/directory.
 _EOF_
-		fi
-	fi
+    fi
+  fi
+}
+
+remote-sshfp () {
+  set -e
+
+  if [[ "$#" -lt 1 ]]; then
+    echo "Usage: $0 <hostname or IP address> <port != 22>"
+    exit
+  fi
+
+  host="$1"
+	port="${2:-22}"
+
+  TMPFILE="$(mktemp /var/tmp/sshfp.XXXXXX)"
+  trap 'rm -f ${TMPFILE}' INT TERM EXIT
+
+  for proto in rsa ecdsa ed25519; do
+    ssh-keyscan -t "$proto" -p "$port" "$host" > ${TMPFILE} 2>/dev/null
+    [[ ! -s "${TMPFILE}" ]] && continue
+    sed -ri 's/^[^ ]+ //' ${TMPFILE}
+    ssh-keygen -r "$host" -f ${TMPFILE}
+  done
 }
 
 show-colors() {
@@ -139,5 +176,8 @@ show-colors() {
 	done
 }
 
+# unset SSH_ASKPASS
+# export SSH_ASKPASS_REQUIRE=never
+
 # setup missing auto-complete
-eval "$(_MOLECULE_COMPLETE=source molecule)"
+# eval "$(_MOLECULE_COMPLETE=source molecule)"

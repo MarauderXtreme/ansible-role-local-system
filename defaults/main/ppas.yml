@@ -11,8 +11,8 @@ local_system_ppa:
   - ppa:jonathonf/vim
   - ppa:libreoffice/ppa
   # - ppa:mozgiii/pass
-  - ppa:oibaf/graphics-drivers
-  - ppa:ondrej/nginx-mainline
+  # - ppa:oibaf/graphics-drivers
+  # - ppa:ondrej/nginx-mainline
   # - ppa:otto-kesselgulasch/gimp
   - ppa:serge-rider/dbeaver-ce
   # - ppa:tiagohillebrandt/postman

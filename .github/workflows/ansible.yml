@@ -30,9 +30,8 @@ jobs:
           docker_channel: stable
       - name: Install dependencies
         run: pip install molecule molecule-docker ansible-lint docker
-      - name: Run molecule lint
-        working-directory: local_system
-        run: MOLECULE_DISTRO=${{ matrix.molecule_distro }} molecule lint
+      - name: Run ansible-lint
+        uses: ansible-community/ansible-lint-action@v6.3.0
   test:
     runs-on: ubuntu-latest
     strategy:

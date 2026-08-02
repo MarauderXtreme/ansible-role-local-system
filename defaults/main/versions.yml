@@ -4,8 +4,8 @@
 
 # oh-my-zsh versions
 local_system_omz: master
-local_system_omz_p10k: "v1.16.1"
-local_system_omz_autosuggests: "v0.7.0"
+local_system_omz_p10k: "v1.20.0"
+local_system_omz_autosuggests: "v0.7.1"
 
 # shell-helper versions
 local_system_bat: "v0.21.0"

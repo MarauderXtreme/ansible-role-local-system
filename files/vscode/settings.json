@@ -1,6 +1,4 @@
 {
-	"workbench.colorTheme": "Noctis Sereno",
-	"workbench.iconTheme": "vscode-icons",
 	"editor.fontFamily": "'FiraCode Nerd Font Mono', 'Fira Code', 'Iosevka Nerd Font', 'Iosevka SS05', 'monospace', monospace",
 	"editor.fontLigatures": true,
 	"editor.suggestSelection": "first",
@@ -14,129 +12,239 @@
 	"debug.console.fontFamily": "'FiraCode Nerd Font Mono', 'Iosevka Nerd Font', default",
 	"telemetry.enableTelemetry": false,
 	"latex-workshop.latex.tools": [
-			{
-					"name": "latexmk",
-					"command": "latexmk",
-					"args": [
-							"-synctex=1",
-							"-interaction=nonstopmode",
-							"-file-line-error",
-							"-pdf",
-							"-outdir=%OUTDIR%",
-							"%DOC%"
-					],
-					"env": {}
-			},
-			{
-					"name": "lualatexmk",
-					"command": "latexmk",
-					"args": [
-							"-synctex=1",
-							"-interaction=nonstopmode",
-							"-file-line-error",
-							"-lualatex",
-							"-outdir=%OUTDIR%",
-							"%DOC%"
-					],
-					"env": {}
-			},
-			{
-					"name": "latexmk_rconly",
-					"command": "latexmk",
-					"args": [
-							"%DOC%"
-					],
-					"env": {}
-			},
-			{
-					"name": "pdflatex",
-					"command": "pdflatex",
-					"args": [
-							"-synctex=1",
-							"-interaction=nonstopmode",
-							"-file-line-error",
-							"%DOC%"
-					],
-					"env": {}
-			},
-			{
-					"name": "xetex",
-					"command": "xelatex",
-					"args": [
-							"-synctex=1",
-							"-interaction=nonstopmode",
-							"-file-line-error",
-							"%DOC%"
-					],
-					"env": {}
-			},
-			{
-					"name": "bibtex",
-					"command": "bibtex",
-					"args": [
-							"%DOCFILE%"
-					],
-					"env": {}
-			}
+		{
+			"name": "latexmk",
+			"command": "latexmk",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"-pdf",
+				"-outdir=%OUTDIR%",
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "lualatexmk",
+			"command": "latexmk",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"-lualatex",
+				"-outdir=%OUTDIR%",
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "latexmk_rconly",
+			"command": "latexmk",
+			"args": [
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "pdflatex",
+			"command": "pdflatex",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "xetex",
+			"command": "xelatex",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "bibtex",
+			"command": "bibtex",
+			"args": [
+				"%DOCFILE%"
+			],
+			"env": {}
+		},
+		{
+			"name": "makeglossaries",
+			"command": "makeglossaries",
+			"args": [
+				"%DOCFILE%"
+			],
+			"env": {}
+		}
 	],
 	"latex-workshop.latex.recipes": [
-			{
-					"name": "xetex 🔃",
-					"tools": [
-							"xetex"
-					]
-			},
-			{
-					"name": "xetex ➞ bibtex ➞ xetex × 2",
-					"tools": [
-							"xetex",
-							"bibtex",
-							"xetex",
-							"xetex"
-					]
-			},
-			{
-					"name": "pdflatex 🔃",
-					"tools": [
-							"pdflatex"
-					]
-			},
-			{
-					"name": "pdflatex ➞ bibtex ➞ pdflatex × 2",
-					"tools": [
-							"pdflatex",
-							"bibtex",
-							"pdflatex",
-							"pdflatex"
-					]
-			},
-			{
-					"name": "latexmk 🔃",
-					"tools": [
-							"latexmk"
-					]
-			},
-			{
-					"name": "latexmk (latexmkrc)",
-					"tools": [
-							"latexmk_rconly"
-					]
-			},
-			{
-					"name": "latexmk (lualatex)",
-					"tools": [
-							"lualatexmk"
-					]
-			}
+		{
+			"name": "xetex 🔃",
+			"tools": [
+				"xetex"
+			]
+		},
+		{
+			"name": "xetex ➞ bibtex ➞ xetex × 2",
+			"tools": [
+				"xetex",
+				"bibtex",
+				"xetex",
+				"xetex"
+			]
+		},
+		{
+			"name": "xetex ➞ bibtex ➞ makeglossaries ➞ xetex × 2",
+			"tools": [
+				"xetex",
+				"bibtex",
+				"makeglossaries",
+				"xetex",
+				"xetex"
+			]
+		},
+		{
+			"name": "pdflatex 🔃",
+			"tools": [
+				"pdflatex"
+			]
+		},
+		{
+			"name": "pdflatex ➞ bibtex ➞ makeglossaries ➞ pdflatex × 2",
+			"tools": [
+				"pdflatex",
+				"bibtex",
+				"makeglossaries",
+				"pdflatex",
+				"pdflatex"
+			]
+		},
+		{
+			"name": "latexmk 🔃",
+			"tools": [
+				"latexmk"
+			]
+		},
+		{
+			"name": "latexmk (latexmkrc)",
+			"tools": [
+					"latexmk_rconly"
+			]
+		},
+		{
+			"name": "latexmk (lualatex)",
+			"tools": [
+				"lualatexmk"
+			]
+		}
 	],
 	"latex-workshop.view.pdf.viewer": "tab",
 	"python.jediEnabled": false,
 	"python.pythonPath": "/usr/bin/python3",
 	"yaml.format.printWidth": 160,
 	"shellcheck.customArgs": [
-			"-x"
+		"-x"
 	],
 	"markdown.extension.print.theme": "dark",
 	"markdown.extension.tableFormatter.normalizeIndentation": true,
-	"markdown.extension.toc.githubCompatibility": true
+	"markdown.extension.toc.githubCompatibility": true,
+	"python.languageServer": "Pylance",
+	"[xml]": {
+		"editor.defaultFormatter": "DotJoshJohnson.xml"
+	},
+	"python.showStartPage": false,
+	"[python]": {
+		"gitlens.codeLens.symbolScopes": [
+			"!Module"
+		],
+		"editor.rulers": [
+			79,
+			120
+		],
+		"editor.wordBasedSuggestions": "off"
+	},
+	"[plaintext]": {
+		"editor.rulers": [72]
+	},
+	"[git-commit]": {
+		"editor.rulers": [
+			72
+		],
+		"workbench.editor.restoreViewState": false
+	},
+	"workbench.editorAssociations": {
+		"*.ipynb": "jupyter.notebook.ipynb"
+	},
+	"markdown.preview.typographer": true,
+	"redhat.telemetry.enabled": false,
+	"workbench.colorCustomizations": {
+		"editor.lineHighlightBackground": "#1073cf2d",
+		"editor.lineHighlightBorder": "#9fced11f"
+	},
+	"editor.wordWrap": "off",
+	"diffEditor.wordWrap": "off",
+	"editor.inlayHints.enabled": "off",
+	"blockman.n23AnalyzeSquareBrackets": true,
+	"blockman.n24AnalyzeRoundBrackets": true,
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.indentation": false,
+	"editor.guides.bracketPairs": false,
+	"blockman.n01LineHeight": 0,
+	"gitlens.defaultDateLocale": "system",
+	"gitlens.defaultDateShortFormat": "D. MMMM YYYY",
+	"gitlens.defaultDateFormat": "D. MMMM YYYY - HH:mm",
+	"gitlens.defaultTimeFormat": "HH:mm",
+	"docker-compose.files": [
+		"docker-compose.yml",
+		"docker-compose.override.yml"
+	],
+	"[markdown]": {
+		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+	},
+	"files.associations": {
+		"LICENSE": "plaintext",
+		".paginator.dbg": "json",
+		".autopage.dbg": "json",
+		".metatag.export": "php",
+		"*.tafuq": "terraform"
+	},
+	"liquid.format.commentIndent": true,
+	"window.menuBarVisibility": "toggle",
+	"workbench.iconTheme": "vscode-icons",
+	"yaml.schemas": {},
+	"editor.unicodeHighlight.invisibleCharacters": false,
+	"latex-workshop.latex.clean.subfolder.enabled": true,
+	"workbench.colorTheme": "Night Owl (No Italics)",
+	"blockman.n04Sub02ColorComboPresetForLightTheme": "none",
+	"blockman.n04ColorComboPreset": "Lobelia (Gradients)",
+	"workbench.productIconTheme": "icons-kamekazi-dark",
+	"vscode-pets.theme": "forest",
+	"go.toolsManagement.autoUpdate": true,
+	"chat.commandCenter.enabled": false,
+	"ansible.lightspeed.enabled": false,
+	"ansible.lightspeed.suggestions.enabled": false,
+	"docker.extension.enableComposeLanguageServer": false,
+	"[dockercompose]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2,
+		"editor.autoIndent": "advanced",
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": false,
+			"strings": true
+		},
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	},
+	"[github-actions-workflow]": {
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	},
+	"chat.disableAIFeatures": true
 }

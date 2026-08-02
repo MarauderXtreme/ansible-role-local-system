@@ -5,10 +5,18 @@ local_system_gitconfig:
     value: FED133CE3670330D
   - name: commit.gpgsign
     value: "true"
+  - name: commit.template
+    value: "~/.git-commit.template"
   - name: alias.undo-commit
     value: reset HEAD^
+  - name: alias.amend
+    value: commit --amend
+  - name: alias.commit-initial
+    value: "commit --allow-empty -m 'Initial Commit'"
   - name: alias.lg
     value: log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  - name: alias.prune-branches
+    value: "remote prune"
   - name: alias.pr
     value: pr = !sh -c 'git fetch $1 pull/$2/head:pull/$2 && git checkout $1/pull/$2' -
   - name: alias.mr
@@ -18,13 +26,19 @@ local_system_gitconfig:
   - name: core.excludesfile
     value: ~/.cvsignore
   - name: pull.rebase
-    value: preserve
+    value: merges
   - name: push.default
     value: upstream
+  - name: init.defaultBranch
+    value: main
+  - name: diff.gpg.textconv
+    value: "gpg -d --quiet --yes --compress-algo=none --no-encrypt-to --batch --use-agent"
 
 local_system_diff_so_fancy_gitconfig:
   - name: core.pager
-    value: diff-so-fancy | less --tabs=1,5 -RFX
+    value: diff-so-fancy | less --tabs=4 -RF
+  - name: interactive.diffFilter
+    value: "diff-so-fancy --patch"
   - name: color.ui
     value: "true"
   - name: color.diff-highlight.oldNormal

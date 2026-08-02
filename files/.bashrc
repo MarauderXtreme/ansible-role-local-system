@@ -60,7 +60,7 @@ if [ "$color_prompt" = yes ]; then
 		PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
 		PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-		fi
+fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
@@ -117,3 +117,7 @@ if ! shopt -oq posix; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+complete -C /usr/bin/terraform terraform
+
+complete -C /usr/local/bin/mc mc

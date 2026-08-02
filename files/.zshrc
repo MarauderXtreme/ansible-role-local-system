@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -68,7 +68,9 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(ansible command-not-found common-aliases docker docker-compose git pass thefuck zsh-autosuggestions)
+plugins=(ansible command-not-found common-aliases docker docker-compose git pass thefuck zsh-autosuggestions you-should-use)
+
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source "$ZSH/oh-my-zsh.sh"
 
@@ -118,7 +120,11 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+eval "$(op completion zsh)"; compdef _op op
+
 eval "$(direnv hook zsh)"
+
+export GPG_TTY=$(tty)
 
 source "$HOME/.aliases"
 
@@ -266,11 +272,11 @@ typeset -g POWERLEVEL9K_DIR_{AGDSN,AGDSN_LONG}_NOT_WRITABLE_FOREGROUND='201'
 typeset -g POWERLEVEL9K_DIR_{AGDSN,AGDSN_LONG}_NOT_WRITABLE_SHORTENED_FOREGROUND='165'
 typeset -g POWERLEVEL9K_DIR_{AGDSN,AGDSN_LONG}_NOT_WRITABLE_ANCHOR_FOREGROUND='207'
 
-typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_BACKGROUND='076'
+typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_BACKGROUND='154'
 typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_FOREGROUND='000'
 typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_SHORTENED_FOREGROUND='235'
 typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_ANCHOR_FOREGROUND='016'
-typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_NOT_WRITABLE_BACKGROUND='076'
+typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_NOT_WRITABLE_BACKGROUND='154'
 typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_NOT_WRITABLE_FOREGROUND='124'
 typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_NOT_WRITABLE_SHORTENED_FOREGROUND='088'
 typeset -g POWERLEVEL9K_DIR_{WORK,WORK_LONG}_NOT_WRITABLE_ANCHOR_FOREGROUND='196'
@@ -326,6 +332,10 @@ POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=${POWERLEVEL9K_RIGHT_PROMPT_FG_COLOUR}
 POWERLEVEL9K_DIRENV_BACKGROUND=${POWERLEVEL9K_RIGHT_PROMPT_BG_COLOUR}
 POWERLEVEL9K_DIRENV_FOREGROUND='172'
 
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='24'
+POWERLEVEL9K_VIRTUALENV_FOREGROUND='221'
+POWERLEVEL9K_VIRTUALENV_VISUAL_IDENTIFIER_EXPANSION=''
+
 POWERLEVEL9K_BATTERY_LOW_BACKGROUND='001'
 POWERLEVEL9K_BATTERY_LOW_FOREGROUND='011'
 POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND='010'
@@ -334,3 +344,9 @@ POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND='070'
 POWERLEVEL9K_BATTERY_CHARGED_FOREGROUND='255'
 POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND=${POWERLEVEL9K_RIGHT_PROMPT_BG_COLOUR}
 POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=${POWERLEVEL9K_RIGHT_PROMPT_FG_COLOUR}
+
+autoload -U +X bashcompinit && bashcompinit
+
+complete -o nospace -C /usr/bin/terraform terraform
+
+complete -o nospace -C /usr/local/bin/mc mc

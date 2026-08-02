@@ -29,7 +29,7 @@ set autoread
 set cc=81,121,141
 hi ColorColumn ctermbg=darkred guibg=darkred
 
-set rtp+=~/.local/lib/python3.8/site-packages/powerline/bindings/vim
+set rtp+=~/.local/share/pipx/venvs/powerline-status/lib/python3.11/site-packages/powerline/bindings/vim
 
 set laststatus=2
 set t_Co=256
